@@ -34,5 +34,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 private fun SplashPreview() {
-    Splash(color = Color.Red, drawableId = R.drawable.chef_hat, text = "Chef Recipes")
+    Splash(color = Color(0xFFEB5757), logoId = R.drawable.chef_hat, backgroundImage = R.drawable.pizza, text = "Chef Recipes")
 }
