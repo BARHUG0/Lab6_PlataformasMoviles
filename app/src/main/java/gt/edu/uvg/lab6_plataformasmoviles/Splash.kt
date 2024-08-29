@@ -4,7 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -18,10 +21,11 @@ import androidx.compose.ui.res.painterResource
 @Composable
 fun Splash(color: Color, drawableId: Int, text: String, modifier: Modifier = Modifier) {
     Surface(modifier = modifier.fillMaxSize(), color = color) {
-        Box (modifier = modifier){
-
-            Image(painter = painterResource(drawableId), contentDescription = null, modifier = Modifier.)
-            Text(text = text)
+        Row (verticalAlignment = Alignment.CenterVertically){
+            Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Image(painter = painterResource(drawableId), contentDescription = null)
+                Text(text = text)
+            }
         }
     }
 }
