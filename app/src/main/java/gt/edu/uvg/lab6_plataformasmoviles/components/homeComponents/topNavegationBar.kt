@@ -13,13 +13,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import gt.edu.uvg.lab6_plataformasmoviles.R
 
-@Preview(showBackground = true)
 @Composable
-fun topNavegationBar(){
+fun topNavegationBar(modifier: Modifier){
     Row (
         modifier = Modifier
             .fillMaxWidth(),
@@ -27,14 +28,17 @@ fun topNavegationBar(){
     ) {
         Icon(
             Icons.Filled.Menu,
-            contentDescription = stringResource(id = R.string.menu_icon)
+            contentDescription = stringResource(id = R.string.menu_icon),
+            tint = Color.Red
         )
 
-        Text(text = "Popular Recipies")
+        Text(text = "Popular Recipies", color = Color.Red)
+
 
         Icon(
             Icons.Filled.Search,
-            contentDescription = stringResource(id = R.string.menu_icon)
+            contentDescription = stringResource(id = R.string.menu_icon),
+            tint = Color.Red
         )
 
     }
