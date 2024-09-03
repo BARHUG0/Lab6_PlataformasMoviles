@@ -6,33 +6,35 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.Icon
+
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 
-import androidx.compose.foundation.layout.Box
+
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Column
+
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material3.Icon
+
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
+
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+
+
 
 
 data class Recipe(
@@ -67,8 +69,8 @@ val pollo = Recipe(
         "Vierte el caldo de pollo en la bandeja.",
         "Hornea durante 30-35 minutos o hasta que el pollo esté cocido y las papas estén doradas."
     ),
-    imagen = ,
-    rating= ,
+    imagen =R.drawable.pollo ,
+    rating=R.drawable.rating ,
 
 
 )
@@ -92,8 +94,8 @@ val pasta = Recipe(
         "Sirve inmediatamente, espolvoreando con queso parmesano rallado y decorando con hojas de albahaca fresca."
     ),
     //Añadir los drawables
-    imagen = ,
-    rating= ,
+    imagen = R.drawable.pasta,
+    rating=R.drawable.rating ,
 
     )
 val tostadas = Recipe(
@@ -115,8 +117,8 @@ val tostadas = Recipe(
         "Sirve las tostadas francesas con las frutas frescas y rocía con miel o jarabe de maple."
     ),
     //Añadir los drawables
-    imagen = ,
-    rating= ,
+    imagen =R.drawable.tostadas ,
+    rating=R.drawable.rating ,
 
     )
 val ensalada = Recipe(
@@ -140,8 +142,8 @@ val ensalada = Recipe(
         "Vierte el aderezo sobre la ensalada y mezcla bien."
     ),
     //Añadir los drawables
-    imagen = ,
-    rating= ,
+    imagen =R.drawable.salad ,
+    rating=R.drawable.rating ,
 
     )
 val tacos = Recipe(
@@ -168,8 +170,8 @@ val tacos = Recipe(
         "Sirve el pescado en las tortillas con piña, cebolla morada, cilantro y limón."
     ),
     //Añadir los drawables
-    imagen = ,
-    rating= ,
+    imagen =R.drawable.tacos ,
+    rating=R.drawable.rating ,
 
     )
 
@@ -194,32 +196,33 @@ val sopa = Recipe(
         "Sirve caliente con pan tostado."
     ),
     //Añadir los drawables
-    imagen = ,
-    rating= ,
+    imagen =R.drawable.sopa ,
+    rating=R.drawable.rating ,
 
     )
 
 @Composable
 fun RecipeDetailScreen(recipe: Recipe) {
-    Scaffold {
-        Column {
+    Scaffold { paddingValues ->
+        Column(modifier = Modifier.padding(paddingValues)) {
             // Imagen principal
             Image(
-                painter = painterResource(recipe.imagen),
+                painter = painterResource(id = recipe.imagen),
                 contentDescription = recipe.title,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(250.dp)
             )
+
+            // Imagen de calificación
             Image(
-                painter = painterResource(recipe.rating), // Ejemplo de otra imagen
+                painter = painterResource(id = recipe.rating),
                 contentDescription = "Estrella de valoración",
                 modifier = Modifier
-                    .height(200.dp)
                     .size(50.dp)
             )
 
-            // Título y calificación
+            // Título
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -230,7 +233,6 @@ fun RecipeDetailScreen(recipe: Recipe) {
                     style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(modifier = Modifier.weight(1f))
-
             }
 
             // Descripción
@@ -246,11 +248,11 @@ fun RecipeDetailScreen(recipe: Recipe) {
                     .padding(16.dp)
             ) {
                 IconButton(onClick = { /* Marcar como favorito */ }) {
-                    Icon(Icons.Default.Favorite, contentDescription = "Favorite")
+                    Icon(Icons.Filled.Favorite, contentDescription = "Favorite")
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 IconButton(onClick = { /* Mostrar lista de compras */ }) {
-                    Icon(Icons.Default.ShoppingCart, contentDescription = "Shopping Cart")
+                    Icon(Icons.Filled.ShoppingCart, contentDescription = "Shopping Cart")
                 }
             }
 
@@ -260,9 +262,11 @@ fun RecipeDetailScreen(recipe: Recipe) {
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(16.dp)
             )
-            LazyColumn {
-                items(recipe.ingredients) { ingredient ->
-                    Text(text = ingredient, modifier = Modifier.padding(16.dp))
+            Column(
+                modifier = Modifier.padding(horizontal = 16.dp)
+            ) {
+                recipe.ingredients.forEach { ingredient ->
+                    Text(text = ingredient, modifier = Modifier.padding(vertical = 4.dp))
                 }
             }
 
@@ -273,9 +277,6 @@ fun RecipeDetailScreen(recipe: Recipe) {
                 modifier = Modifier.padding(16.dp)
             )
             PreparationSection(steps = recipe.steps)
-
-
-
         }
     }
 }
@@ -289,11 +290,10 @@ fun PreparationSection(steps: List<String>) {
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                Icon(Icons.Default.Check, contentDescription = "Step completed")
+                Icon(Icons.Filled.Check, contentDescription = "Step completed")
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(text = "Step ${index + 1}: $step")
             }
         }
     }
 }
-
