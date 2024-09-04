@@ -22,14 +22,41 @@ import gt.edu.uvg.lab6_plataformasmoviles.components.homeComponents.topNavegatio
 
 
 @Composable
-fun Home(modifier: Modifier){
-    Column {
-        Spacer(modifier = Modifier.height(5.dp))
-        topNavegationBar(modifier = modifier)
-        Spacer(modifier = Modifier.height(35.dp))
-        foodTypeSelection(modifier = Modifier.width(16.dp))
-        FoodPreviewImage( modifier = Modifier.fillMaxWidth(), foodImages = foodImage)
-        foodPreviewInformation(duration = 3, likes = 500, comments = 22, starNum= 4, title = dishName, description= textTest, modifier = modifier)
+fun Home(
+    modifier: Modifier,
+    onButtonClick: () -> Unit
+){
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ){
+        Spacer(
+            modifier = Modifier.height(40.dp)
+        )
+        topNavegationBar(
+            modifier = modifier
+        )
+        Spacer(
+            modifier = Modifier.height(35.dp)
+        )
+        foodTypeSelection(
+            modifier = Modifier.width(16.dp)
+        )
+        FoodPreviewImage(
+            modifier = Modifier.fillMaxWidth(),
+            foodImages = foodImage,
+            onImageClick = {
+                onButtonClick()
+            }
+        )
+        foodPreviewInformation(
+            duration = 3,
+            likes = 500,
+            comments = 22,
+            starNum= 4,
+            title = dishName,
+            description= textTest,
+            modifier = modifier
+        )
     }
 }
 val dishName = "POLLITO ASADO"
@@ -39,7 +66,7 @@ val textTest = "Un plato clásico y refrescante, perfecto para cualquier ocasió
 @Preview(showBackground = true)
 @Composable
 fun previewHome() {
-    Home(modifier = Modifier)
+    Home(modifier = Modifier, onButtonClick = {})
 }
 
 

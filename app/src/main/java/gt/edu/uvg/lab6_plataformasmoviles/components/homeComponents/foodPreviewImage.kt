@@ -1,6 +1,7 @@
 package gt.edu.uvg.lab6_plataformasmoviles.components.homeComponents
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,7 +35,11 @@ import kotlin.math.roundToInt
 import kotlin.math.abs
 
 @Composable
-fun FoodPreviewImage(modifier: Modifier = Modifier, foodImages: List<Int>) {
+fun FoodPreviewImage(
+    modifier: Modifier = Modifier,
+    foodImages: List<Int>,
+    onImageClick: () -> Unit
+) {
     val listState = rememberLazyListState(initialFirstVisibleItemIndex = Int.MAX_VALUE / 2)
     var centerIndex by remember { mutableStateOf(Int.MAX_VALUE / 2) }
 
@@ -58,8 +63,10 @@ fun FoodPreviewImage(modifier: Modifier = Modifier, foodImages: List<Int>) {
                 modifier = Modifier
                     .clip(RoundedCornerShape(20.dp))
                     .size(width = 250.dp * scale, height = 200.dp * scale)
-                    .padding(8.dp),
+                    .padding(8.dp)
+                    .clickable { onImageClick() },
                 contentAlignment = Alignment.Center
+
             ) {
                 Image(
                     painter = painterResource(id = image),
@@ -80,5 +87,5 @@ fun PreviewFoodPreviewImage() {
         R.drawable.entreelasagna,
         R.drawable.entreepho
     )
-    FoodPreviewImage(modifier = Modifier.fillMaxSize(), foodImages = foodImage)
+    FoodPreviewImage(modifier = Modifier.fillMaxSize(), foodImages = foodImage, onImageClick = {})
 }
