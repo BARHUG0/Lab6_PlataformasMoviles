@@ -1,6 +1,7 @@
 package gt.edu.uvg.lab6_plataformasmoviles.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,8 +23,21 @@ import androidx.compose.ui.unit.sp
 import gt.edu.uvg.lab6_plataformasmoviles.components.splashComponents.SurfaceWithImage
 
 @Composable
-fun Splash(color: Color, logoId: Int, backgroundImage: Int, text: String, modifier: Modifier = Modifier) {
-    SurfaceWithImage(color = color, backgroundImage =backgroundImage, modifier = Modifier) {
+fun Splash(
+    color: Color,
+    logoId: Int,
+    backgroundImage:
+    Int,
+    text: String,
+    modifier: Modifier = Modifier,
+    onButtonClick: () -> Unit
+) {
+    SurfaceWithImage(
+        color = color,
+        backgroundImage =backgroundImage,
+        modifier = Modifier
+            .clickable { onButtonClick() }
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(
                 modifier = Modifier.fillMaxWidth(),

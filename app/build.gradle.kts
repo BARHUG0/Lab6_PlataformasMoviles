@@ -50,6 +50,11 @@ android {
 }
 
 dependencies {
+    //Router
+    implementation("androidx.navigation:navigation-compose:2.5.3")
+
+    //Dont work for now
+    //("com.google.accompanist:accompanist-pager:0.24.13")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -66,4 +71,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
 }
