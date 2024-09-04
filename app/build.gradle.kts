@@ -51,7 +51,7 @@ android {
 
 dependencies {
     //Router
-    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 
     //Dont work for now
     //("com.google.accompanist:accompanist-pager:0.24.13")
