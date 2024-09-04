@@ -36,3 +36,8 @@ private fun SurfaceWithImagePreview() {
         
     }
 }
+@Preview
+@Composable
+private fun RecipesPreview(){
+    RecipeDetailScreen(recipe = pasta)
+}

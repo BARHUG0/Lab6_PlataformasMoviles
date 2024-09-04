@@ -17,8 +17,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Column
+import androidx.compose.ui.Alignment
 
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -33,6 +35,8 @@ import androidx.compose.ui.Modifier
 
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
+
 
 
 
@@ -48,8 +52,8 @@ data class Recipe(
 
 val pollo = Recipe(
     title= "Pollo al Limón con Papas Asadas",
-    description="""Un plato clásico y refrescante, perfecto para cualquier ocasión. " +
-            El pollo se marina en limón y hierbas, mientras que las papas se asan hasta quedar doradas y crujientes.""",
+    description="""Un plato clásico y refrescante, perfecto para cualquier ocasión. 
+ El pollo se marina en limón y hierbas, mientras que las papas se asan hasta quedar doradas y crujientes.""",
     ingredients= listOf(
         "4 piezas de pollo",
         "4 papas grandes",
@@ -219,8 +223,11 @@ fun RecipeDetailScreen(recipe: Recipe) {
                 painter = painterResource(id = recipe.rating),
                 contentDescription = "Estrella de valoración",
                 modifier = Modifier
-                    .size(50.dp)
+                    .size(120.dp)
+                    .align(Alignment.CenterHorizontally)
             )
+
+
 
             // Título
             Row(
@@ -240,60 +247,67 @@ fun RecipeDetailScreen(recipe: Recipe) {
                 text = recipe.description,
                 modifier = Modifier.padding(16.dp)
             )
-
-            // Botones de acción
-            Row(
+            Image(
+                painter = painterResource(id = R.drawable.ingredientes),
+                contentDescription = "Lista de compras",
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                IconButton(onClick = { /* Marcar como favorito */ }) {
-                    Icon(Icons.Filled.Favorite, contentDescription = "Favorite")
-                }
-                Spacer(modifier = Modifier.weight(1f))
-                IconButton(onClick = { /* Mostrar lista de compras */ }) {
-                    Icon(Icons.Filled.ShoppingCart, contentDescription = "Shopping Cart")
-                }
-            }
+                    .size(200.dp)
+                    .align(Alignment.CenterHorizontally)
 
-            // Lista de ingredientes
+            )
+
+
+
             Text(
-                text = "Ingredientes:",
+                text = "",
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(16.dp)
+
             )
-            Column(
+            LazyColumn(
                 modifier = Modifier.padding(horizontal = 16.dp)
+                    .padding(top=2.dp)
             ) {
-                recipe.ingredients.forEach { ingredient ->
-                    Text(text = ingredient, modifier = Modifier.padding(vertical = 4.dp))
+                itemsIndexed(recipe.ingredients) {index, ingredient ->
+                    Text(text = ingredient, modifier = Modifier.padding(vertical = 4.dp)
+                    )
                 }
             }
+
+
+            Image(
+                painter = painterResource(id = R.drawable.preparacion),
+                contentDescription = "Preparación",
+                modifier = Modifier
+                    .size(200.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
 
             // Preparación
             Text(
-                text = "Preparación:",
+                text = "",
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(16.dp)
             )
-            PreparationSection(steps = recipe.steps)
-        }
-    }
-}
-
-@Composable
-fun PreparationSection(steps: List<String>) {
-    LazyColumn {
-        itemsIndexed(steps) { index, step ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+            LazyColumn(
+                modifier = Modifier.padding(horizontal = 16.dp)
             ) {
-                Icon(Icons.Filled.Check, contentDescription = "Step completed")
-                Spacer(modifier = Modifier.width(16.dp))
-                Text(text = "Step ${index + 1}: $step")
+                itemsIndexed(recipe.steps) { index, step ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = "Step completed",
+                            tint = Color.Red // Cambia el color aquí
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(text = "Paso ${index + 1}: $step")
+                }
             }
         }
     }
-}
+}}
+
