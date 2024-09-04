@@ -1,6 +1,7 @@
 package gt.edu.uvg.lab6_plataformasmoviles
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Icon
@@ -10,6 +11,7 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.Alignment
 
 
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,7 +19,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Column
-import androidx.compose.ui.Alignment
+
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -77,7 +79,7 @@ val pollo = Recipe(
     rating=R.drawable.rating ,
 
 
-)
+    )
 
 val pasta = Recipe(
     title= "Pasta con Pesto y Tomates Cherry",
@@ -205,111 +207,124 @@ val sopa = Recipe(
 
     )
 
+
+
 @Composable
 fun RecipeDetailScreen(recipe: Recipe) {
     Scaffold { paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues)) {
-            // Imagen principal
-            Image(
-                painter = painterResource(id = recipe.imagen),
-                contentDescription = recipe.title,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp)
-            )
-
-            // Imagen de calificación
-            Image(
-                painter = painterResource(id = recipe.rating),
-                contentDescription = "Estrella de valoración",
-                modifier = Modifier
-                    .size(120.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
-
-
-
-            // Título
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(
-                    text = recipe.title,
-                    style = MaterialTheme.typography.titleMedium
+        LazyColumn(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize() // para ocupar todo el espacio disponible
+        ) {
+            item {
+                // Imagen principal
+                Image(
+                    painter = painterResource(id = recipe.imagen),
+                    contentDescription = recipe.title,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
                 )
-                Spacer(modifier = Modifier.weight(1f))
-            }
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
 
-            // Descripción
-            Text(
-                text = recipe.description,
-                modifier = Modifier.padding(16.dp)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.ingredientes),
-                contentDescription = "Lista de compras",
-                modifier = Modifier
-                    .size(200.dp)
-                    .align(Alignment.CenterHorizontally)
-
-            )
-
-
-
-            Text(
-                text = "",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(16.dp)
-
-            )
-            LazyColumn(
-                modifier = Modifier.padding(horizontal = 16.dp)
-                    .padding(top=2.dp)
-            ) {
-                itemsIndexed(recipe.ingredients) {index, ingredient ->
-                    Text(text = ingredient, modifier = Modifier.padding(vertical = 4.dp)
+                    // Imagen de calificación
+                    Image(
+                        painter = painterResource(id = recipe.rating),
+                        contentDescription = "Estrella de valoración",
+                        modifier = Modifier
+                            .size(120.dp)
+                            .align(Alignment.Center)
                     )
                 }
+
+                // Título
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = recipe.title,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+
+                // Descripción
+                Text(
+                    text = recipe.description,
+                    modifier = Modifier.padding(16.dp)
+                )
             }
 
+            // Sección de ingredientes
+            item {
+                Box(
+                    modifier = Modifier.fillMaxWidth()
 
-            Image(
-                painter = painterResource(id = R.drawable.preparacion),
-                contentDescription = "Preparación",
-                modifier = Modifier
-                    .size(200.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
-
-            // Preparación
-            Text(
-                text = "",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(16.dp)
-            )
-            LazyColumn(
-                modifier = Modifier.padding(horizontal = 16.dp)
-            ) {
-                itemsIndexed(recipe.steps) { index, step ->
-                    Row(
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ingredientes),
+                        contentDescription = "Lista de compras",
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 4.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = "Step completed",
-                            tint = Color.Red // Cambia el color aquí
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(text = "Paso ${index + 1}: $step")
+                            .size(200.dp)
+                            .align(Alignment.Center)
+                    )
+                }
+
+                Text(
+                    text = "Ingredientes",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+
+            itemsIndexed(recipe.ingredients) { index, ingredient ->
+                Text(
+                    text = ingredient,
+                    modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp)
+                )
+            }
+
+            // Sección de preparación
+            item {
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.preparacion),
+                        contentDescription = "Preparación",
+                        modifier = Modifier
+                            .size(200.dp)
+                            .align(Alignment.Center)
+                    )
+                }
+
+                Text(
+                    text = "Preparación",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+
+            itemsIndexed(recipe.steps) { index, step ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp, horizontal = 16.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Check,
+                        contentDescription = "Step completed",
+                        tint = Color.Red
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(text = "Paso ${index + 1}: $step")
                 }
             }
         }
     }
-    }
 }
-
-
