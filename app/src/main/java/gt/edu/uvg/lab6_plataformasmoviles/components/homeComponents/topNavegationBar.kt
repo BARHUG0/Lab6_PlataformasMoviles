@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.Composable
@@ -23,17 +24,19 @@ import gt.edu.uvg.lab6_plataformasmoviles.R
 import gt.edu.uvg.lab6_plataformasmoviles.ui.theme.AppColor
 
 @Composable
-fun topNavegationBar(modifier: Modifier){
+fun topNavegationBar(modifier: Modifier, onClickedDrawer: () -> Unit){
     Row (
         modifier = Modifier
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        Icon(
-            Icons.Filled.Menu,
-            contentDescription = stringResource(id = R.string.menu_icon),
-            tint = AppColor
-        )
+        IconButton(onClick = onClickedDrawer) {
+            Icon(
+                Icons.Filled.Menu,
+                contentDescription = stringResource(id = R.string.menu_icon),
+                tint = AppColor
+            )
+        }
 
         Text(text = "Popular Recipies",
             color = AppColor,
